@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 import Decimal from 'decimal.js';
 
 /**
@@ -31,7 +32,7 @@ export class KhataEngine {
     const amountStr = new Decimal(req.amount).toString();
 
     // 2. Atomic write to SQLite
-    const entry = await prisma.$transaction(async (tx) => {
+    const entry = await (prisma as any).$transaction(async (tx: any) => {
 
       const newEntry = await tx.khataEntry.create({
         data: {
@@ -74,7 +75,7 @@ export class KhataEngine {
   /**
    * PURE UTILITY: Returns an array of entries with their running balance.
    */
-  static runningBalance(entries: { type?: string, entry_type?: string, amount: string | number, ts?: never, created_at?: never }[]) {
+  static runningBalance(entries: { type?: string, entry_type?: string, amount: string | number, ts?: any, created_at?: any }[]) {
     let balance = new Decimal(0);
     return entries.map(entry => {
       const amount = new Decimal(entry.amount);
