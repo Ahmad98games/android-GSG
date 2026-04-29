@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "lib": ["ES2022", "DOM"],
+    "outDir": "dist",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+
+  },
+  "include": [
+    "server.ts",
+    "lib/mesh/**/*",
+    "shared/**/*",
+    "app/api/mesh/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "app/(routes)/**/*",
+    "components/**/*"
+  ]
+}

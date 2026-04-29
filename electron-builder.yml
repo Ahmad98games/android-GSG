@@ -1,0 +1,40 @@
+appId: "com.omnora.noxis"
+productName: "Noxis"
+copyright: "Copyright © 2025 Omnora Industrial Systems"
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: assets/icons/noxis-icon.ico
+  requestedExecutionLevel: asInvoker
+
+nsis:
+  oneClick: false
+  allowDirChange: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: "Noxis Industrial Hub"
+  installerIcon: assets/icons/noxis-installer.ico
+  installerHeaderIcon: assets/icons/noxis-installer.ico
+  installerSidebar: assets/installer-sidebar.bmp
+  license: assets/LICENSE.rtf
+  runAfterFinish: true
+
+publish:
+  provider: github
+  owner: Ahmad98games
+  repo: GSG
+
+extraResources:
+  - from: "assets/"
+    to: "assets/"
+
+files:
+  - "dist/**/*"
+  - "electron/**/*"
+  - "public/**/*"
+  - "package.json"
+
+asar: true
+compression: maximum

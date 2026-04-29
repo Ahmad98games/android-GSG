@@ -1,0 +1,115 @@
+
+/* 
+ * Cinematic Industrial Design System
+ * Gold She Mesh — Production Admin Dashboard
+ */
+
+:root {
+  --admin-bg: #09090b;
+  --admin-card: rgba(17, 17, 19, 0.8);
+  --admin-accent-primary: #3b82f6;
+  --admin-accent-success: #10b981;
+  --admin-border: rgba(255, 255, 255, 0.05);
+  --admin-glow: rgba(59, 130, 246, 0.15);
+  --admin-glass-blur: blur(12px);
+}
+
+.admin-dashboard {
+  background-color: var(--admin-bg);
+  min-height: 100vh;
+  color: #f8fafc;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Glassmorphism Cards with Bloom Effect */
+.admin-card {
+  background: var(--admin-card);
+  backdrop-filter: var(--admin-glass-blur);
+  border: 1px solid var(--admin-border);
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.admin-card:hover {
+  border-color: var(--admin-accent-primary);
+  box-shadow: 0 0 40px var(--admin-glow);
+}
+
+/* Lens Bloom / Ethereal Glow */
+.bloom-accent {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, var(--admin-accent-primary) 0%, transparent 70%);
+  opacity: 0.1;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* Terminal Feed Styling */
+.terminal-feed {
+  background: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.terminal-line {
+  border-left: 2px solid transparent;
+  padding-left: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.terminal-line.success { border-color: var(--admin-accent-success); color: #6ee7b7; }
+.terminal-line.info { border-color: var(--admin-accent-primary); color: #93c5fd; }
+.terminal-line.timestamp { color: #4b5563; font-size: 0.7rem; margin-right: 0.5rem; }
+
+/* Status Indicators */
+.status-pill {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-online { background: rgba(16, 185, 129, 0.1); color: var(--admin-accent-success); border: 1px solid rgba(16, 185, 129, 0.2); }
+.status-offline { background: rgba(248, 113, 113, 0.1); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.2); }
+
+/* Grid Layout */
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.grid-col-sidebar { grid-column: span 3; }
+.grid-col-main { grid-column: span 9; }
+
+/* Animations */
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.3); }
+  100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+}
+
+.animate-glow {
+  animation: pulse-glow 3s infinite;
+}

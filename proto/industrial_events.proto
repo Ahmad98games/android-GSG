@@ -1,0 +1,11 @@
+syntax = "proto3";
+package goldshe.mesh;
+
+enum EventType { HEARTBEAT = 0; SCAN = 1; SOS = 2; FINANCIAL = 3; }
+message Heartbeat { int32 battery_level = 1; int32 signal_strength = 2; int32 uptime_seconds = 3; }
+message ScanEvent { string barcode = 1; string location_id = 2; string worker_id = 3; }
+message SosEvent { string alert_code = 1; float latitude = 2; float longitude = 3; }
+message FinancialEvent { string worker_id = 1; double amount = 2; string currency = 3; string description = 4; bool is_credit = 5; }
+message IndustrialEvent { string id = 1; string device_id = 2; int64 timestamp = 3; EventType type = 4;
+  oneof data { Heartbeat heartbeat = 5; ScanEvent scan = 6; SosEvent sos = 7; FinancialEvent financial = 8; }
+}

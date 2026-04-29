@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noxis Booting</title>
+    <style>
+        @font-face {
+            font-family: 'Geist Mono';
+            src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-mono/GeistMono-Bold.woff2') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121417;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Geist Mono', monospace;
+            -webkit-app-region: drag;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .hexagon {
+            fill: none;
+            stroke: #60A5FA;
+            stroke-width: 4;
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: drawHex 2s ease-in-out infinite, pulse 2s infinite;
+        }
+
+        @keyframes drawHex {
+            0% { stroke-dashoffset: 300; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -300; }
+        }
+
+        @keyframes pulse {
+            0% { filter: drop-shadow(0 0 5px #60A5FA); }
+            50% { filter: drop-shadow(0 0 20px #60A5FA); }
+            100% { filter: drop-shadow(0 0 5px #60A5FA); }
+        }
+
+        .title {
+            color: #C5A059;
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .progress-container {
+            width: 250px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #60A5FA;
+            box-shadow: 0 0 10px #60A5FA;
+            animation: progress 2.5s ease-in-out forwards;
+        }
+
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        .status-text {
+            color: #60A5FA;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            height: 12px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .fade-out {
+            opacity: 0;
+            transition: opacity 300ms ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="logo-container">
+            <svg viewBox="0 0 100 100">
+                <path class="hexagon" d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z" />
+            </svg>
+        </div>
+        <div class="title">NOXIS v9.0<br><span style="font-size: 12px; opacity: 0.7;">Industrial Mesh OS</span></div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        <div class="status-text" id="status">Initializing TCP Bridge...</div>
+    </div>
+
+    <script>
+        const statusEl = document.getElementById('status');
+        const statuses = [
+            "Initializing TCP Bridge...",
+            "Loading Industry Profile...",
+            "Decrypting Vault...",
+            "System Ready"
+        ];
+        let currentStatus = 0;
+
+        const interval = setInterval(() => {
+            currentStatus++;
+            if (currentStatus < statuses.length) {
+                statusEl.textContent = statuses[currentStatus];
+            } else {
+                clearInterval(interval);
+            }
+        }, 600);
+
+        // Function called by main process before closing
+        window.fadeOut = () => {
+            document.getElementById('container').classList.add('fade-out');
+        };
+    </script>
+</body>
+</html>

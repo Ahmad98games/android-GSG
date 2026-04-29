@@ -1,0 +1,61 @@
+syntax = "proto3";
+package goldshe.mesh;
+
+// SHARED SCHEMA — must be identical in textile-mobile/src/proto/messages.proto
+
+enum EventType {
+  HEARTBEAT = 0; SCAN = 1; SOS = 2; ERROR = 3; TELEMETRY = 4; KHATA = 5; DELTA = 6; MESSAGE = 7; TYPING = 8; FETCH_PENDING = 9;
+}
+
+message HeartbeatEvent { int32 battery_pct = 1; int32 signal_dbm = 2; int64 timestamp = 3; }
+message ScanEvent { string barcode = 1; string worker_id = 2; string location_id = 3; }
+message SOSEvent { string alert_code = 1; string geo_coords = 2; }
+message ErrorEvent { string error_code = 1; string stack_trace = 2; }
+message TelemetryEvent { int32 cpu_usage = 1; int32 ram_usage = 2; int32 latency_ms = 3; }
+message KhataEntry { string entry_id = 1; string worker_id = 2; string amount_pkr = 3; string description = 4; }
+message StockDelta { string delta_id = 1; string batch_id = 2; string qty = 3; string vector_clock = 4; }
+
+message TacticalMessage { 
+  string message_id = 1; 
+  string content = 2; 
+  string media_uri = 3; 
+  bool isEncrypted = 6; 
+  bytes encryptedPayload = 7; 
+  string mediaType = 8;
+}
+
+message TypingEvent { string fromNodeId = 1; string toNodeId = 2; int64 timestamp = 3; }
+
+message HubAck { 
+  string event_id = 1; 
+  int64 server_time = 2; 
+  int32 syncOffsetMs = 3;
+  string activeProfile = 5; 
+  string uiManifestUrl = 6; 
+}
+
+message FetchPendingMessagesRequest { string nodeId = 1; int64 lastReceivedAt = 2; }
+
+message ProfileManifest { 
+  string activeProfile = 1; 
+  repeated string visibleModules = 2; 
+  map<string, string> labelOverrides = 3; 
+  string barcodeRegex = 4; 
+}
+
+message IndustrialEvent {
+  string id = 1; string node_id = 2; int64 timestamp = 3; EventType type = 4;
+  oneof payload {
+    HeartbeatEvent heartbeat = 5;
+    ScanEvent scan = 6;
+    SOSEvent sos = 7;
+    ErrorEvent error = 8;
+    TelemetryEvent telemetry = 9;
+    KhataEntry khata = 10;
+    StockDelta delta = 11;
+    TacticalMessage message = 12;
+    HubAck ack = 13;
+    TypingEvent typing = 14;
+    FetchPendingMessagesRequest fetchPending = 15;
+  }
+}

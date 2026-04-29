@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --accent-primary: 96 165 250; /* Primary Blue #60A5FA */
+    --accent-financial: 197 160 89; /* Gold #C5A059 */
+    --surface-bg: 18 20 23; /* Slate v9.0 #121417 */
+    --surface-card: 24 27 31;
+    --text-primary: 255 255 255;
+    --text-muted: 148 163 184;
+  }
+
+  body {
+    @apply bg-[#121417] text-white antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  .mono-financial {
+    font-family: 'JetBrains Mono', monospace;
+    color: rgb(var(--accent-financial));
+  }
+}
+
+
+@theme {
+  --color-accent: rgb(var(--accent-primary));
+  --color-accent-secondary: rgb(var(--accent-secondary));
+  --color-surface: rgb(var(--surface-bg));
+  --color-surface-card: rgb(var(--surface-card));
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

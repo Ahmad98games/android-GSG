@@ -1,0 +1,41 @@
+GOLD SHE ERP - Aasaan Guide (Roman Urdu)
+
+Bhai, ye simple guide hai system chalane ke liye:
+
+1. DASHBOARD (MAIN GHAR)
+- Jab aap system kholen ge, sab se pehle "Main Ghar" (Dashboard) dikhe ga.
+- Yahan aap ko "Total Sale" aur "Unpaid" (baqi paise) nazar ayen ge.
+- Sab se niche aap ko Machines ya Workers ki report dikhe gi.
+
+2. ARTICLES (MAAL DETAIL)
+- "Maal Detail" button dabayen aur dekhen k kaunsa kapra (fabric) kitne rate ka hai.
+- Naya kapra barhane ke liye "CREATE ARTICLE" dabayen.
+- Har kapray ka apna ek "Rang" (Color) hota hai jo system khud yaad rakhta hai.
+
+3. ORDERS (BILL BOOK)
+- Bill banane ke liye "Bill Book" pe jayen aur Blue button dabayen jis pe (NAYA BILL) likha hai.
+- Pehle "Grahak" (Customer) ka naam chunain.
+- Phir kapray (Article) chunain aur kitne Suit chahiye wo likh kar "ADD" karen.
+- Jab bill mukammal ho jaye to "CONFIRM" kar den.
+
+4. ORDER STATUS (RANG AUR DOTS)
+- Bill Book me har bill ke sath ek chamakta hua gol dot (Pulsing Dot) nazar aye ga:
+  * NEELA (Blue): Bill ban gaya hai (Confirmed).
+  * PEELA (Yellow): Maal gari pe charh gaya hai (Dispatched).
+  * HARA (Green): Maal customer tak pahonch gaya (Delivered).
+  * LAAL (Red): Is bill ke paise abhi baki hain (Alert).
+
+5. INVENTORY (MAAL GODAM)
+- "Maal Godam" me aap ko dikhe ga ke factory me kitna maal baki hai.
+- Agar stock kam ho jaye to wahan red alert aye ga.
+
+6. CALCULATOR (ALT+K)
+- Agar aap ko kapray ka maap (measurement) karna hai (Gaz se Suit ya Suit se Gaz), to keyboard se 'ALT' aur 'K' dono ek sath dabayen.
+- Calculator khul jaye ga, bas number likhen aur answer mil jaye ga.
+
+7. MADAD (HELP)
+- Kisi bhi masle ki surat me Sidebar me niche bane "KARIGAR" ya "MESSAGE" wala icon dabayen aur PC Admin ko bta den.
+
+---
+Hamesha yad rakhen: NEELA (Blue) button tab dabana hai jab koi naya kaam ya "CONFIRM" karna ho.
+---

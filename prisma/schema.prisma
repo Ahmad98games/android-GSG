@@ -1,0 +1,105 @@
+// GOLD SHE MESH — Hub Prisma Schema (v1.0.0)
+// Local Source of Truth: SQLite
+
+generator client {
+  provider = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─────────────────────────────────────────────────────────────
+// PILLAR 2 — UNIVERSAL SAAS ENGINE
+// ─────────────────────────────────────────────────────────────
+
+model SystemSettings {
+  id                 Int      @id @default(1)
+  factoryName        String   @default("Industrial Hub")
+  companyLogo        String?  // Base64 encoded logo
+  themeId            String   @default("onyx-gold") // onyx-gold, cyber-lime, corporate-blue, safety-red
+  industryType       String   @default("general") // textile, pharma, logistics, etc.
+  masterPassword     String?  // Hashed or raw for initial setup friction
+  onboardingComplete Boolean  @default(false)
+  setupAt            DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("system_settings")
+}
+
+// ─────────────────────────────────────────────────────────────
+// PILLAR 5 — IMMUTABLE LEDGER (KHATA)
+// ─────────────────────────────────────────────────────────────
+
+model KhataEntry {
+  id          String   @id @default(uuid())
+  type        String   // CREDIT | DEBIT
+  amount      String   // Stored as string for Decimal.js precision
+  description String
+  workerName  String
+  workerId    String?
+  ts          DateTime @default(now())
+  
+  // PILLAR 4 — SMART ARCHIVING
+  snippetPath String?  // Local file path to the 60s RTSP evidence snippet
+  
+  // AUDIT TRAIL
+  createdAt   DateTime @default(now())
+  
+  @@index([workerName])
+  @@index([ts])
+  @@map("khata_entries")
+}
+
+// ─────────────────────────────────────────────────────────────
+// PILLAR 1 — TCP MESH REGISTRY
+// ─────────────────────────────────────────────────────────────
+
+model NodeRegistration {
+  id                String   @id @default(uuid())
+  nodeSlot          Int      @unique // 1..10
+  deviceName        String
+  deviceFingerprint String   @unique
+  role              String   @default("FIELD_NODE")
+  publicKeyPem      String?
+  lastSeenAt        DateTime?
+  isActive          Boolean  @default(false)
+  linkedAt          DateTime?
+  updatedAt         DateTime @updatedAt
+
+  @@map("node_registrations")
+}
+
+// ─────────────────────────────────────────────────────────────
+// RULE 4 — SECURITY & AUDIT
+// ─────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String   // CREATE | DELETE | SYSTEM_CHANGE
+  entity    String   // KHATA | NODE | SETTINGS
+  entityId  String?
+  details   String?
+  ts        DateTime @default(now())
+
+  @@map("audit_logs")
+}
+
+// ─────────────────────────────────────────────────────────────
+// PILLAR 6 — CLOUD SYNC QUEUE
+// ─────────────────────────────────────────────────────────────
+
+model SyncQueue {
+  id            String   @id @default(uuid())
+  operation     String   // UPSERT | DELETE
+  tableName     String
+  payload       String   // JSON payload to be pushed to Supabase
+  attempts      Int      @default(0)
+  lastError     String?
+  nextAttemptAt DateTime?
+  syncedAt      DateTime?
+  createdAt     DateTime @default(now())
+
+  @@map("sync_queue")
+}

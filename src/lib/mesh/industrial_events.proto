@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package goldshe.mesh;
+
+/**
+ * GOLD SHE MESH — Industrial Event Schema
+ * Optimized for ultra-light binary transfer over tactical links.
+ */
+
+enum EventType {
+    HEARTBEAT = 0;
+    SCAN = 1;
+    SOS = 2;
+    FINANCIAL = 3;
+}
+
+message IndustrialEvent {
+    string id = 1;              // UUID v4
+    string device_id = 2;       // Sender ID
+    int64 timestamp = 3;        // Unix ms
+    EventType type = 4;
+    
+    // Oneof allows for memory-efficient payload variation
+    oneof data {
+        Heartbeat heartbeat = 5;
+        ScanEvent scan = 6;
+        SosEvent sos = 7;
+        FinancialEvent financial = 8;
+    }
+}
+
+message Heartbeat {
+    int32 battery_level = 1;    // 0-100
+    int32 signal_strength = 2;  // -dBm
+    int32 uptime_seconds = 3;
+}
+
+message ScanEvent {
+    string barcode = 1;
+    string location_id = 2;
+    string worker_id = 3;
+}
+
+message SosEvent {
+    string alert_code = 1;      // e.g., "MAN_DOWN", "TEMP_CRITICAL"
+    float latitude = 2;
+    float longitude = 3;
+}
+
+message FinancialEvent {
+    string worker_id = 1;
+    double amount = 2;
+    string currency = 3;
+    string description = 4;
+    bool is_credit = 5;
+}
