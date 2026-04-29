@@ -21,8 +21,8 @@ export const BrandingProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       if (typeof window !== 'undefined' && window.noxis) {
         const name = await window.noxis.store.get('businessName');
         const logo = await window.noxis.store.get('businessLogo');
-        if (name) setBusinessName(name);
-        if (logo) setBusinessLogo(logo);
+        if (typeof name === 'string') setBusinessName(name);
+        if (typeof logo === 'string') setBusinessLogo(logo);
       }
       setIsLoaded(true);
     }

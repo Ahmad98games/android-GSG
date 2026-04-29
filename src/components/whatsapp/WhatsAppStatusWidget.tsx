@@ -17,7 +17,7 @@ export const WhatsAppStatusWidget = () => {
     setIsLinked(linked);
     if (linked && typeof window !== 'undefined' && window.noxis) {
       const savedNumber = await window.noxis.store.get('whatsappBusinessNumber');
-      setNumber(savedNumber || '');
+      setNumber((savedNumber as string) || '');
     }
   };
 
@@ -30,7 +30,7 @@ export const WhatsAppStatusWidget = () => {
       if (linked && typeof window !== 'undefined' && window.noxis) {
         const savedNumber = await window.noxis.store.get('whatsappBusinessNumber');
         if (!active) return;
-        setNumber(savedNumber || '');
+        setNumber((savedNumber as string) || '');
       }
     };
     init();
