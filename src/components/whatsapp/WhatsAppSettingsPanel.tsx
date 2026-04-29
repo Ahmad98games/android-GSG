@@ -16,7 +16,7 @@ export const WhatsAppSettingsPanel = () => {
         const n = await window.noxis.store.get('whatsappBusinessNumber');
         const a = await window.noxis.store.get('whatsappAlertsEnabled');
         const k = await window.noxis.store.get('khataWhatsappEnabled');
-        setNumber(n || '');
+        setNumber((n as string) || '');
         setAlertsEnabled(!!a);
         setKhataEnabled(!!k);
       }
